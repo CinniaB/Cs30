@@ -1,12 +1,12 @@
-// Project Title
-// Your Name
-// Date
+// Drawing Activity
+// Cinnia
+// october 4th 2024
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
 
-
+//givong the bakground a value
 let currentback = 0;
 
 function setup() {
@@ -15,6 +15,8 @@ function setup() {
 
 
 function draw() {
+  //setting up the current back value so that when the 
+  //value goes up the backgroud can changes color 
   if (currentback === 0) background(180, 255, 248);
   else if (currentback === 1) background(0, 95, 123)
   else if (currentback === 2) background(36, 0, 123)
@@ -32,9 +34,11 @@ function draw() {
 
 
 
-function mousePressed() {
-  if (mouseButton === LEFT) {
-    currentback = currentback + 1;
+function keyPressed() {
+  //setting up the key "a" to change the value of current back
+  //to change color when pressed
+  if(key === "a") {
+    currentback = currentback += 1;
     if (currentback > 3) currentback = 0;
 
   }
@@ -43,7 +47,9 @@ function mousePressed() {
 
 
 function bunny() {
-  
+//making a small bunny as my charachter that ill be able to move
+//and then changing my Y, X variables tho follow the mouse so that
+//it moves   
   rect(CENTER)
   
  fill(209, 99, 34)
@@ -90,6 +96,7 @@ function bunny() {
 }
 
 function grass(){
+  //adding some landscapes to give the bunny a inviroment
   fill(0,102,0)
   rect(width/1000,height/2+50,width,height,0,0,0,0)
 }
