@@ -1,6 +1,6 @@
-// Project Title
-// Your Name
-// Date
+// Perlin noise
+// Cinnia Bidaux
+// October tusday the 8th 2024
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
@@ -81,6 +81,6 @@ function keyPressed(){
 function flag(x,y){
   noStroke()
   fill(255, 0, 102)
-  rect(x,y , 4, -60, 50,50,0,00)
+  rect(x,y , 4, -60, 50,50,0,0)
   triangle(x+5,y-40,x+5, y-60,x+50,y-50)
 }
