@@ -7,21 +7,30 @@
 
 let eastBound =[] ;
 let westBound =[];
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  for(let i = 0; i < 20 ;i++){
+    eastBound.push(new Vehicle(width,random(height/2,height/4),0));
+  }
+  for(let i = 0;i < 20;i++){
+    westBound.push(new Vehicle(width,random(height/2,height*3),1));
+  }
 }
-
 function draw() {
   background(220);
   drawRoad();
   for(let i = 0;i < eastBound.length;i++){
     eastBound[i].action();
   }
+  for(let i = 0;i < westBound.length;i++){
+    westBound[i].action();
+  }
 }
 
 function mouseClicked(){
-  eastBound.push(new Vehicle(mouseX,mouseY,1));
+  eastBound.push(new Vehicle(mouseX,mouseY,0));
 }
 
 function drawRoad(){
@@ -41,14 +50,65 @@ class Vehicle{
     this.type = int(random(2));
     this.c = color(random(255),random(255),random(255));
     this.direction = direction;
-    this.xSpeed = 5;
+    this.xSpeed = random(1,15);
   }
+  SpeedUp(){
+    if(this.direction === 0){
+      if(random(1,100) >= 100){
+        xSpeed += random(-15, -1);
+      }
+    }
+    if(this.direction === 1){
+      if(random(1,100) >= 100){
+        xSpeed += random(1, 15);
+      }
+    }
+  }
+
+  Speeddown(){
+    if(this.direction === 0){
+      if(random(1,100) >= 100){
+        xSpeed -= random(-3, -1);
+      }
+    }
+    if(this.direction === 1){
+      if(random(1,100) >= 100){
+        xSpeed -= random(1, 3);
+      }
+    }
+  }
+
+  changeColor(){
+    if( random(1,100) >= 100){
+
+      this.c = color(random(255),random(255),random(255));
+    }
+  }
+
   move(){
-    this.x += this.xSpeed;
+    if(this.direction === 0){
+      this.x += this.xSpeed;
+      if(this.x > width){
+        this.x = 0;
+      }
+    }
+    else if(this.direction === 1){
+      this.x -= this.xSpeed;
+      if(this.x < 0){
+        this.x = width;
+      }
+    }
   }
   action(){
     this.move();
+    this.SpeedUp();
+    this.Speeddown();
+    this.changeColor();
     this.display();
+
+
+
+    
   }
   display(){
     if(this.type === 0){
