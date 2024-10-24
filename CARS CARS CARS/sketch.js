@@ -84,7 +84,7 @@ class Vehicle{
   }
 
   changeColor(){
-    if( random(1,100) >= 100){
+    if(random(1,100) >= 99){
 
       this.c = color(random(255),random(255),random(255));
     }
