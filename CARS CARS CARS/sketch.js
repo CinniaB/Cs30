@@ -1,6 +1,6 @@
-// Project Title
-// Your Name
-// Date
+// CARS CARS CARS
+// Cinnia Bidaux
+// october 24th 2024
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
@@ -12,14 +12,14 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   for(let i = 0; i < 20 ;i++){
-    eastBound.push(new Vehicle(width,random(height/2,height/4),0));
+    eastBound.push(new Vehicle(width,random(height/2-60,height/4),0));
   }
   for(let i = 0;i < 20;i++){
-    westBound.push(new Vehicle(width,random(height/2,height*3),1));
+    westBound.push(new Vehicle(width,random(height/2+150,height/2),1));
   }
 }
 function draw() {
-  background(220);
+  background(0, 255, 0);
   drawRoad();
   for(let i = 0;i < eastBound.length;i++){
     eastBound[i].action();
@@ -30,7 +30,12 @@ function draw() {
 }
 
 function mouseClicked(){
-  eastBound.push(new Vehicle(mouseX,mouseY,0));
+  if(keyIsPressed && keyCode === SHIFT){
+    eastBound.push(new Vehicle(width,random(height/2-60,height/4),0));
+  }
+  else{
+    westBound.push(new Vehicle(width,random(height/2+150,height/2),1));
+  }
 }
 
 function drawRoad(){
@@ -131,5 +136,6 @@ class Vehicle{
   drawTruck(){
     fill(this.c);
     rect(this.x,this.y,60,50);
+    rect(this.x+65,this.y,10,50);
   }
 }

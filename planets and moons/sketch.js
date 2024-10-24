@@ -13,7 +13,7 @@ function setup(){
 }
 
 function draw(){
-  background(220);
+  background(0, 255, 0);
   myPlanet.display();
 }
 
@@ -60,7 +60,7 @@ class Moon{
     }
     circle(this.x, this.y, this.r);
   }
-}
+}      
 
 
 function mouseClicked(){
