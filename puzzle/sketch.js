@@ -1,92 +1,93 @@
-//Insert your Comment Header here.
-
 let NUM_ROWS = 4;
 let NUM_COLS = 5;
 let rectWidth, rectHeight;
 let currentRow, currentCol;
-let gridData = [[0,0,0,0,0],
-                [0,0,0,0,0],
-                [0,255,0,0,0],
-                [255,255,255,0,0]];
-
-
+let newGrid = [];
 
 function setup() {
-  // Determine the size of each square. Could use windowHeight,windowHeight  for Canvas to keep a square aspect ratio
   createCanvas(windowWidth, windowHeight);
-  rectWidth = width/NUM_COLS;
-  rectHeight = height/NUM_ROWS;
+  rectWidth = width / NUM_COLS;
+  rectHeight = height / NUM_ROWS;
+
+  // Initialize newGrid with random values (0 or 255)
+  newGrid = [];
+  for (let i = 0; i < NUM_ROWS; i++) {
+    let rowArray = [];
+    for (let j = 0; j < NUM_COLS; j++) {
+      rowArray.push(int(random(0, 2)) === 0 ? 0 : 255); // Random 0 or 255
+    }
+    newGrid.push(rowArray);
+  }
 }
 
 function draw() {
   background(220);
-  determineActiveSquare();   //figure out which tile the mouse cursor is over
-  drawGrid();                //render the current game board to the screen (and the overlay)
+  
+  determineActiveSquare();   // figure out which tile the mouse cursor is over
+  drawGrid();                // render the current game board to the screen (and the overlay)
   winCondition();
+  overlay();
 }
 
-
-
-function mousePressed(){
-  // cross-shaped pattern flips on a mouseclick. Boundary conditions are checked within the flip function to ensure in-bounds access for array
-  if(keyIsDown (SHIFT)){
+function mousePressed() {
+  if (keyIsDown(32)) {  // Spacebar key (keyCode: 32)
+    // Spacebar is pressed -> Flip 4 squares (current + right + down + diagonal)
     flip(currentCol, currentRow);
-  }
-  else{
+    flip(currentCol + 1, currentRow);
+    flip(currentCol, currentRow + 1);
+    flip(currentCol + 1, currentRow + 1);
+  } else if (keyIsDown(SHIFT) && mouseIsPressed) {  // Shift key is pressed
+    // Shift is pressed -> Flip only the currently selected square
     flip(currentCol, currentRow);
-    flip(currentCol-1, currentRow);
-    flip(currentCol+1, currentRow);
-    flip(currentCol, currentRow-1);
-    flip(currentCol, currentRow+1);
-  }
-  
-  
-
-  
-}
-
-
-
-
-function flip(col, row){
-  // given a column and row for the 2D array, flip its value from 0 to 255 or 255 to 0
-  // conditions ensure that the col and row given are valid and exist for the array. If not, no operations take place.
-  if (col >= 0 && col < NUM_COLS ){
-    if (row >= 0 && row < NUM_ROWS){
-      if (gridData[row][col] === 0) {
-        gridData[row][col] = 255;
-      }
-      else {
-        gridData[row][col] = 0;
-    }
+  } else {
+    // No key pressed -> Flip 5 squares (current + right + left + up + down)
+    flip(currentCol, currentRow);
+    flip(currentCol + 1, currentRow);
+    flip(currentCol - 1, currentRow);
+    flip(currentCol, currentRow - 1);
+    flip(currentCol, currentRow + 1);
   }
 }
+
+function flip(col, row) {
+  if (col >= 0 && col < NUM_COLS && row >= 0 && row < NUM_ROWS) {
+    newGrid[row][col] = newGrid[row][col] === 0 ? 255 : 0;
+  }
 }
 
-function determineActiveSquare(){
-  // An expression to run each frame to determine where the mouse currently is.
+function determineActiveSquare() {
   currentRow = int(mouseY / rectHeight);
   currentCol = int(mouseX / rectWidth);
 }
 
-function drawGrid(){
-  // Render a grid of squares - fill color set according to data stored in the 2D array
-  for (let x = 0; x < NUM_COLS ; x++){
-    for (let y = 0; y < NUM_ROWS; y++){
-      fill(gridData[y][x]); 
-      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
+function drawGrid() {
+  for (let x = 0; x < NUM_COLS; x++) {
+    for (let y = 0; y < NUM_ROWS; y++) {
+      fill(newGrid[y][x]);
+      rect(x * rectWidth, y * rectHeight, rectWidth, rectHeight);
     }
   }
 }
 
-function winCondition(){
-  for(let i = 0; i > 0; i++){
-    if(gridData[i]){
-      textSize(32);
-      textAlign(CENTER, CENTER);
-      fill(212,123,78);
-      text("You Win", width / 2, height /2 );
-    }
+function winCondition() {
+  let firstValue = newGrid[0][0];
+  let allIdentical = newGrid.every(row => row.every(value => value === firstValue));
+
+  if (allIdentical) {
+    textSize(32);
+    fill(firstValue === 0 ? 255 : 0);
+    textAlign(CENTER, CENTER);
+    text("You Win", width / 2, height / 2);
   }
- 
+}
+
+function overlay() {
+  currentRow = int(mouseY / rectHeight);
+  currentCol = int(mouseX / rectWidth);
+  fill(0, 100, 0, 150);
+  rect(currentCol * rectWidth, currentRow * rectHeight, rectWidth, rectHeight);
+  rect((currentCol + 1) * rectWidth, currentRow * rectHeight, rectWidth, rectHeight);
+  rect((currentCol - 1) * rectWidth, currentRow * rectHeight, rectWidth, rectHeight);
+  rect(currentCol * rectWidth, (currentRow - 1) * rectHeight, rectWidth, rectHeight);
+  rect(currentCol * rectWidth, (currentRow + 1) * rectHeight, rectWidth, rectHeight);
 }
