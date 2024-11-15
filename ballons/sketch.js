@@ -21,22 +21,23 @@ function drawLine( x1, y1, x2, y2, depth) {
 }
 function drawTree(x1, y1, angle, depth) {
   if (depth > 0) {
+    let angle = map(mouseX,0,width,1.01,2);
     let x2 = x1 + (cos(radians(angle))*depth*scale); //calculate endpoints ofcurrent branch
     let y2 = y1 - (sin(radians(angle))*depth*scale); //using trig ratios. Getshorter based on depth
     drawLine(x1, y1, x2, y2, depth);
     //for a 2-branch tree:
-    drawTree(x2, y2, angle-18, depth-1);
-    drawTree(x2, y2, angle+18, depth-1);
+    drawTree(x2, y2, angle, depth-1);
+    drawTree(x2, y2, angle, depth-1);
     drawTree(x2, y2, angle, depth-1);
     if(depth < 5){
-      drawLeaf(x1, y1, 10, depth);
+      drawLeaf(x2, y2, depth*10);
     }
 
   }
 }
 
 
-function drawLeaf(x,y,d,){
+function drawLeaf(x,y,d){
   if(d > 0){
     fill(random(255),random(255),random(255));
     circle(x,y,d);
@@ -44,5 +45,12 @@ function drawLeaf(x,y,d,){
     
 
 
+  }
+}
+//function circleIncircle(x, y, d){
+  if (d > 10){
+    circle(x,y,d);
+    let den = map(mouseX,0,width,1.01, 2);
+    circleIncircle(x,y,d/den);
   }
 }
