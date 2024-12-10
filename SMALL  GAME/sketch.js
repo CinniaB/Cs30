@@ -6,19 +6,24 @@
 // - describe what you did to take this project "above and beyond"
 
 let character;
+let screen = 0;
+let NPCs = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   character = new MC(width / 2, height / 2);
+  NPCs.push (new NPC(width / 2, height / 2,["hello"]));
 }
 
 function draw() {
   background(220);
   character.display();
   character.move();
+  NPCs[screen].display();
+  NPCs[screen].talk();
 }
 
-function keyPressed(){
+function keyPressed() {
   character.jump();
 }
 
@@ -36,17 +41,36 @@ class MC {
 
   move() {
     if (keyIsDown(LEFT_ARROW) === true) {
-      this.position.x -= 2;
+      this.position.x -= 6;
+      if (this.position.x < 0) {
+        if (screen === 0 || screen === 10) { //10 max number of screen also i can change this later
+          this.position.x += 6;
+        }
+        else {
+          this.position.x = width;
+          screen--;
+        }
+      }
     }
     if (keyIsDown(RIGHT_ARROW) === true) {
-      this.position.x += 2;
+      this.position.x += 6;
+      if (this.position.x > width) {
+        if (screen > 10) { //10 max number of screen also i can change this later
+          this.position.x -= 6;
+        }
+        else {
+          this.position.x = 0;
+          screen++;
+        }
+      }
     }
+
     this.position.add(this.vel);
     this.vel.add(0, 0.5);
     if (this.position.y >= 600) {
       this.position.y = 600;
       this.vel.y = 0;
-      this.jumps = 0; 
+      this.jumps = 0;
     }
   }
   jump() {
@@ -58,4 +82,20 @@ class MC {
   }
 
 
+}
+
+class NPC {
+  constructor(x, y, script) {
+    this.position = createVector(x, y);
+    this.size = 50;
+    this.lines = script;
+    this.currentLine = 0;
+  }
+  display() {
+    circle(this.position.x, this.position.y, this.size);
+  }
+
+  talk(){
+    text(this.lines[this.currentLine],this.position.x, this.position.y);
+  }
 }
