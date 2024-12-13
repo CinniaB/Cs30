@@ -9,10 +9,11 @@ let character;
 let screen = 0;
 let NPCs = [];
 let testO;
+let obstacles = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  character = new MC(width / 2, height / 2);
+  character = new MC(width, height / 2);
   NPCs.push (new NPC(width / 2, height / 2,["hello"]));
   NPCs.push (new NPC(width / 2, height / 2,["talk"]));
   NPCs.push (new NPC(width / 2, height / 2,["jane"]));
@@ -25,6 +26,7 @@ function setup() {
   NPCs.push (new NPC(width / 2, height / 2,["father"]));
   NPCs.push (new NPC(width / 2, height / 2,["dand"])); //make more npc to stop from crashing
   testO = new Obstacle(width/2, height/2+110,70,100);
+  obstacles.push([testO]);
 }
 
 function draw() {
@@ -84,6 +86,24 @@ class MC {
       this.position.y = 600;
       this.vel.y = 0;
       this.jumps = 0;
+    }
+    this.checkObs();
+  }
+
+  checkObs(){
+    //left and right
+    let left = this.position.x - this.size/2;
+    let right = this.position.x + this.size/2;
+    let top = this.position.y - this.size/2;
+    let bottom = this.position.y + this.size/2;
+    for(let o of obstacles [screen]){
+      print(right, o.left,o.right)
+      if(right > o.left && right < o.right){
+        this.position.x -= 6;
+      }
+      if(left < o.right && left > o.left){
+        this.position.x += 6;
+      }
     }
   }
   jump() {
