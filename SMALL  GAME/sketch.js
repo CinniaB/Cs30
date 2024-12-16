@@ -97,7 +97,7 @@ class MC {
     let top = this.position.y - this.size/2;
     let bottom = this.position.y + this.size/2;
     for(let o of obstacles [screen]){
-      print(right, o.left,o.right)
+      print(right, o.left,o.right);
       if(right > o.left && right < o.right){
         this.position.x -= 6;
       }
