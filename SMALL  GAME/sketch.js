@@ -14,18 +14,18 @@ let obstacles = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   character = new MC(width, height / 2);
-  NPCs.push (new NPC(width / 2, height / 2,["hello"]));
-  NPCs.push (new NPC(width / 2, height / 2,["talk"]));
-  NPCs.push (new NPC(width / 2, height / 2,["jane"]));
-  NPCs.push (new NPC(width / 2, height / 2,["kay"]));
-  NPCs.push (new NPC(width / 2, height / 2,["milo"]));
-  NPCs.push (new NPC(width / 2, height / 2,["jack"]));
-  NPCs.push (new NPC(width / 2, height / 2,["jhon"]));
-  NPCs.push (new NPC(width / 2, height / 2,["ahhhh"]));
-  NPCs.push (new NPC(width / 2, height / 2,["no"]));
-  NPCs.push (new NPC(width / 2, height / 2,["father"]));
-  NPCs.push (new NPC(width / 2, height / 2,["dand"])); //make more npc to stop from crashing
-  testO = new Obstacle(width/2, height/2+110,70,100);
+  NPCs.push(new NPC(width / 2, height / 2, ["hello"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["talk"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["jane"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["kay"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["milo"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["jack"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["jhon"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["ahhhh"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["no"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["father"]));
+  NPCs.push(new NPC(width / 2, height / 2, ["dand"])); //make more npc to stop from crashing
+  testO = new Obstacle(width / 2, height / 2 + 110, 70, 100);
   obstacles.push([testO]);
 }
 
@@ -90,25 +90,33 @@ class MC {
     this.checkObs();
   }
 
-  checkObs(){
+  checkObs() {
     //left and right
-    let left = this.position.x - this.size/2;
-    let right = this.position.x + this.size/2;
-    let top = this.position.y - this.size/2;
-    let bottom = this.position.y + this.size/2;
-    for(let o of obstacles [screen]){
-      print(right, o.left,o.right);
-      if(right > o.left && right < o.right){
-        this.position.x -= 6;
+    let left = this.position.x - this.size / 2;
+    let right = this.position.x + this.size / 2;
+    let bottom = this.position.y + this.size / 2;
+    for (let o of obstacles[screen]) {
+      print(right, o.left, o.right, o.top, bottom);
+      if (bottom > o.top + 20) {
+        if (right > o.left && right < o.right) {
+          this.position.x -= 6;
+        }
+        else if (left < o.right && left > o.left) {
+          this.position.x += 6;
+        }
       }
-      if(left < o.right && left > o.left){
-        this.position.x += 6;
+      else if (bottom > o.top && right > o.left && left < o.right) {
+        this.position.y = o.top - this.size / 2;
+        this.vel.y = +0;
+        this.jumps = 0;
       }
+
+
     }
   }
   jump() {
     if (keyIsDown(32) === true && this.jumps < 2) {
-      this.vel.y = -8;
+      this.vel.y = -16;
       this.jumps++;
     }
 
@@ -128,25 +136,25 @@ class NPC {
     circle(this.position.x, this.position.y, this.size);
   }
 
-  talk(){
-    text(this.lines[this.currentLine],this.position.x, this.position.y);
+  talk() {
+    text(this.lines[this.currentLine], this.position.x, this.position.y);
   }
 }
 
-class Obstacle{
-  constructor(x,y,w,h){
+class Obstacle {
+  constructor(x, y, w, h) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
-    this.top = this.y - this.h/2;
-    this.bottom = this.y + this.h/2;
-    this.left = this.x - this.w/2;
-    this.right = this.x + this.w/2;
+    this.top = this.y - this.h / 2;
+    this.bottom = this.y + this.h / 2;
+    this.left = this.x - this.w / 2;
+    this.right = this.x + this.w / 2;
   }
 
-  display(){
+  display() {
     rectMode(CENTER);
-    rect(this.x,this.y,this.w,this.h);
+    rect(this.x, this.y, this.w, this.h);
   }
 }
