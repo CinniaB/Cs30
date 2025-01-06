@@ -25,8 +25,9 @@ function setup() {
   NPCs.push(new NPC(width / 2, height / 2, ["no"]));
   NPCs.push(new NPC(width / 2, height / 2, ["father"]));
   NPCs.push(new NPC(width / 2, height / 2, ["dand"])); //make more npc to stop from crashing
-  testO = new Obstacle(width / 2, height / 2 + 110, 70, 100);
-  obstacles.push([testO]);
+  o1a = new Obstacle(random(width*0.20,width*0.90), height / 2 + 110, 70, 100);
+  o1b = new Obstacle(random(width*0.20,width*0.90), random(height/2,height*0.80), 70, 50);
+  obstacles.push([o1a,o1b],[o1a]);
 }
 
 function draw() {
@@ -35,7 +36,10 @@ function draw() {
   character.move();
   NPCs[screen].display();
   NPCs[screen].talk();
-  testO.display();
+  for(let o of obstacles [screen]){
+    o.display();
+  }
+
 }
 
 function keyPressed() {
@@ -105,7 +109,7 @@ class MC {
           this.position.x += 6;
         }
       }
-      else if (bottom > o.top && right > o.left && left < o.right) {
+      else if (this.vel.y >= 0 && bottom > o.top && right > o.left && left < o.right) {
         this.position.y = o.top - this.size / 2;
         this.vel.y = +0;
         this.jumps = 0;
@@ -116,7 +120,7 @@ class MC {
   }
   jump() {
     if (keyIsDown(32) === true && this.jumps < 2) {
-      this.vel.y = -16;
+      this.vel.y = -8;
       this.jumps++;
     }
 
