@@ -25,9 +25,51 @@ function setup() {
   NPCs.push(new NPC(width / 2, height / 2, ["no"]));
   NPCs.push(new NPC(width / 2, height / 2, ["father"]));
   NPCs.push(new NPC(width / 2, height / 2, ["dand"])); //make more npc to stop from crashing
-  o1a = new Obstacle(random(width*0.20,width*0.90), height / 2 + 110, 70, 100);
-  o1b = new Obstacle(random(width*0.20,width*0.90), random(height/2,height*0.80), 70, 50);
-  obstacles.push([o1a,o1b],[o1a]);
+  let ranY = random(50,150);
+  o1a = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);//not changed
+  ranY = random(50,150);
+  o1b = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1c = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1d = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1e = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1f = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1g = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1h = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1j = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1k = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1l = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1m = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1n = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1o = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1p = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1q = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1r = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1s = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1t = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1u = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1v = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1w = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  obstacles.push([o1a,o1b],[o1c,o1d,o1e],[o1f,o1g],[o1h,o1j,o1k],[o1l,o1m],[o1n,o1o]);
 }
 
 function draw() {
