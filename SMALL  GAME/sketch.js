@@ -5,16 +5,23 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+
+
 let character;
 let screen = 0;
 let NPCs = [];
 let testO;
 let obstacles = [];
+let back;
+
+function preload(){
+  back = loadImage("assets/forest.jpg");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  character = new MC(width, height / 2);
-  NPCs.push(new NPC(width / 2, height / 2, ["hello"]));
+  character = new MC(2, height / 2);
+  NPCs.push(new NPC(width - 100, height*0.64, ["hello"]));
   NPCs.push(new NPC(width / 2, height / 2, ["talk"]));
   NPCs.push(new NPC(width / 2, height / 2, ["jane"]));
   NPCs.push(new NPC(width / 2, height / 2, ["kay"]));
@@ -69,11 +76,16 @@ function setup() {
   o1v = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
   ranY = random(50,150);
   o1w = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
-  obstacles.push([o1a,o1b],[o1c,o1d,o1e],[o1f,o1g],[o1h,o1j,o1k],[o1l,o1m],[o1n,o1o]);
+  ranY = random(50,150);
+  o1x = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  ranY = random(50,150);
+  o1y = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);
+  obstacles.push([o1a,o1b],[o1c,o1d,o1e],[o1f,o1g],[o1h,o1j,o1k],[o1l,o1m],[o1n,o1o],[o1p,o1q],[o1r,o1s],[o1t,o1u],[o1v,o1w],[o1v,o1w],[o1x,o1y]);
 }
 
 function draw() {
   background(220);
+  image(back,0,0,width,height);
   character.display();
   character.move();
   NPCs[screen].display();
