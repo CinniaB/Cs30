@@ -13,6 +13,7 @@ let NPCs = [];
 let testO;
 let obstacles = [];
 let back;
+let shadeAmount = 300;
 
 function preload(){
   back = loadImage("assets/forest.jpg");
@@ -22,16 +23,16 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   character = new MC(2, height / 2);
   NPCs.push(new NPC(width - 100, height*0.64, ["hello"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["talk"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["jane"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["kay"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["milo"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["jack"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["jhon"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["ahhhh"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["no"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["father"]));
-  NPCs.push(new NPC(width / 2, height / 2, ["dand"])); //make more npc to stop from crashing
+  NPCs.push(new NPC(width - 100, height*0.64, ["oh you've came back"]));
+  NPCs.push(new NPC(width - 100, height*0.64, ["why are you still running"]));
+  NPCs.push(new NPC(width - 100, height*0.64, ["your efforts are usless"]));
+  NPCs.push(new NPC(width - 100, height*0.64, ["Stop"]));
+  NPCs.push(new NPC(width - 100, height*0.64, ["i said Stop"]));
+  NPCs.push(new NPC(width - 100, height*0.64, ["STOP"]));
+  NPCs.push(new NPC(width - 100, height*0.64, ["You cant escape"]));
+  NPCs.push(new NPC(width - 100, height*0.64, ["stop running"]));
+  NPCs.push(new NPC(width - 100, height*0.64, [""])); //make more npc to stop from crashing
+  NPCs.push(new NPC(width - 100, height*0.64, [""]));
   let ranY = random(50,150);
   o1a = new Obstacle(random(width*0.20,width*0.90), height/ 2 + 160 - ranY/2, 70, ranY);//not changed
   ranY = random(50,150);
@@ -83,9 +84,41 @@ function setup() {
   obstacles.push([o1a,o1b],[o1c,o1d,o1e],[o1f,o1g],[o1h,o1j,o1k],[o1l,o1m],[o1n,o1o],[o1p,o1q],[o1r,o1s],[o1t,o1u],[o1v,o1w],[o1v,o1w],[o1x,o1y]);
 }
 
+
+function shade(){
+  rectMode(CORNER);
+  noStroke();
+  for(let y = 0; y < shadeAmount; y+=5){
+    let t = map(y,0,shadeAmount,255,0);
+    fill(0,t);
+    rect(0,y,width,5);
+  }
+  for(let x = 0; x < shadeAmount; x+=5){
+    let t = map(x,0,shadeAmount,255,0);
+    fill(0,t);
+    rect(x,0,5,height);
+  }
+  for(let y = 0; y < shadeAmount; y+=5){
+    let t = map(y,0,shadeAmount,255,0);
+    fill(0,t);
+    rect(0,height-y,width,5);
+  }
+  for(let x = 0; x < shadeAmount; x+=5){
+    let t = map(x,0,shadeAmount,255,0);
+    fill(0,t);
+    rect(width-x,0,5,height);
+  }
+  fill(255);
+  stroke(0);
+  rectMode(CENTER);
+
+}
+
 function draw() {
   background(220);
   image(back,0,0,width,height);
+  shadeAmount = screen*50;
+  shade();
   character.display();
   character.move();
   NPCs[screen].display();
